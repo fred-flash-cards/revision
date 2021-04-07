@@ -149,12 +149,12 @@
                         row +
                         ' / span 1">' +
                         element.gs$cell.inputValue +
-                        "</p><div class='button'>show / hide answers</div><div class='answers'></div></div>"
+                        "</p><div class='button'>show / hide answer</div><div class='answers'></div></div>"
                     ).appendTo("#things-here");
                   } else {
                     $(
                       '<p style="">' + element.gs$cell.inputValue + "</p>"
-                    ).appendTo("#question-" + row + " .answer");
+                    ).appendTo("#question-" + row + " .answers");
                   }
                 }
               });
