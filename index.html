@@ -1,8 +1,10 @@
+<!DOCTYPE html>
+<html>
 <head>
+  <title>Flash Fred Cards</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <style>
-    /* Find a free font at Google fonts. Here I've used their "Work Sans" font */
     @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400&display=swap");
     body {
       margin: 0;
@@ -104,7 +106,6 @@
   <div id="subjects"></div>
   <div id="things-here"></div>
   <script>
-    // Find the JSON endpoint of a "public" google sheet (i.e. anyone with the link can view)
     const numberOfSheets = 8;
     const root =
       "https://spreadsheets.google.com/feeds/cells/1EEQej3HC0vI4LDdrXt-Qrtjd-aCW-Na2sT6nyPECEb0/";
@@ -116,7 +117,6 @@
       i++;
     }
 
-    // the minute the page loads, fetch that data
     var spreadsheetsData = {};
     endpoints.forEach((endpoint) => {
       $.get(endpoint, function (data, status) {
@@ -134,13 +134,10 @@
               $(this).siblings().removeClass("selected");
               var chosenSubject = $(this).attr("id");
               spreadsheetsData[chosenSubject].forEach((element) => {
-                // each cell object contains the data, column, and row
-                // for more complex data manipulation, you should create a data transformer
                 var cellData = element.gs$cell.inputValue;
                 var column = element.gs$cell.col;
                 var row = element.gs$cell.row;
 
-                // if you want a styled first row
                 if (row !== "1") {
                   if (column === "1") {
                     $(
@@ -157,7 +154,7 @@
                   } else {
                     $(
                       '<p style="">' + element.gs$cell.inputValue + "</p>"
-                    ).appendTo("#question-" + row + " .answers");
+                    ).appendTo("#question-" + row + " .answer");
                   }
                 }
               });
@@ -172,3 +169,4 @@
     });
   </script>
 </body>
+</html>
