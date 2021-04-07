@@ -3,7 +3,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <style>
     /* Find a free font at Google fonts. Here I've used their "Work Sans" font */
-    @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400&display=swap");
     body {
       margin: 0;
       margin-left: auto;
@@ -72,6 +72,7 @@
     .answered .button {
       background-color: grey;
     }
+
     #subjects div {
       display: inline-block;
       background-color: rgb(154, 211, 255);
@@ -80,22 +81,31 @@
       cursor: pointer;
       border-radius: 7px;
     }
+    #subjects div:hover {
+      background-color: rgb(165, 201, 165);
+    }
+    #subjects div.selected {
+      background-color: rgb(100, 164, 100);
+      color: white;
+    }
 
     .card {
       margin-top: 20px;
       margin-bottom: 20px;
+      padding-top: 20px;
       padding-bottom: 20px;
       border-bottom: 1px dotted grey;
+      border-top: 1px dotted grey;
     }
   </style>
 </head>
 <body>
-  <h1>Flashcards</h1>
+  <h1>Flash Fred Cards</h1>
   <div id="subjects"></div>
   <div id="things-here"></div>
   <script>
     // Find the JSON endpoint of a "public" google sheet (i.e. anyone with the link can view)
-    const numberOfSheets = 3;
+    const numberOfSheets = 8;
     const root =
       "https://spreadsheets.google.com/feeds/cells/1EEQej3HC0vI4LDdrXt-Qrtjd-aCW-Na2sT6nyPECEb0/";
     const suffix = "/public/full?alt=json";
@@ -120,8 +130,8 @@
             ).appendTo("#subjects");
             $(".subject").click(function () {
               $("#things-here").empty();
-              $(this).toggleClass("selected");
-              console.log(this);
+              $(this).addClass("selected");
+              $(this).siblings().removeClass("selected");
               var chosenSubject = $(this).attr("id");
               spreadsheetsData[chosenSubject].forEach((element) => {
                 // each cell object contains the data, column, and row
